@@ -1,0 +1,178 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.content-page{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 80px;
+}
+
+tr{
+    display: table-row;
+    border-color: inherit;
+    padding: 8px;
+    vertical-align: middle;
+    /*max-width: 250px;*/
+    /*overflow: hidden;*/
+}
+table{
+    text-indent: initial;
+    border-spacing: 2px;
+}
+.listSanPham{
+    width: 100%;
+    border-collapse: collapse;
+}
+.listSanPham tr td:first-child{
+    text-align: center;
+}
+.listSanPham th{
+    border: 1px solid #fff;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background:-webkit-linear-gradient(top, #202c4f, #5e698b);
+    color: #ddd;
+}
+.listSanPham td{
+    border: 1px solid #fff;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    max-width: 250px;
+    overflow: hidden;
+}
+
+td:nth-child(2n) {
+    /* CSS dành cho mỗi td thứ 2 */
+    max-width: 100px; /* Một ví dụ về màu nền khác */
+    max-height: 50px;
+}
+.noPadding{
+    padding: 0 0 0 10px;
+    line-height: 2.5rem;
+}
+a{
+    text-decoration: none;
+    color: #222;
+}
+.listSanPham td a{
+    display: block;
+    position: relative;
+    padding: 5px 0;
+}
+.alignRight{
+    text-align: center;
+    padding-right: 30px;
+}
+.soluong{
+    text-align: center;
+}
+.noPadding1{
+    text-align: center;
+}
+
+
+.listSanPham img{
+    width: 50%;
+    height: auto;
+    display: block; /* Loại bỏ khoảng trắng dưới ảnh khi ảnh là inline element */
+    margin: 0 auto;
+}
+
+.listSanPham button{
+    background-color: white;
+    border: transparent;
+    cursor: pointer;
+    /*font-size: 17px;*/
+}
+
+.listSanPham .soluong button{
+    background: #202c4f;
+    color:#fff;
+    width: 30px;
+    height: 2em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.listSanPham .soluong button:hover{
+    background: #4caf50;
+}
+.listSanPham .soluong input{
+    width: 70px;
+    height: 30px;
+    border: none;
+    font-size: 15px;
+    background-color: #fff;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+.fa{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.delete{
+    margin-top: 20px;
+    width: 100%;
+    gap: 20px;
+    /* text-align: right; */
+    display: flex;
+    justify-content: end;
+}
+
+.deleteall{
+    min-width: 70px;
+    display: block;
+    overflow: hidden;
+    padding: 7px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    line-height: normal;
+    color: #fff;
+    background:-webkit-linear-gradient(top, #202c4f, #5e698b);
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    text-align: center;
+}
+.deleteall:hover{
+    background: -webkit-linear-gradient(top, #ea2424, #871010);
+}
+.thanhtien{
+    margin-top: 30px;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+.gia{
+    font-size: 15px;
+    font-weight: 300;
+    color: red;
+}
+.thanhtien span{
+    display: inline-block;
+}
+
+.bi {
+    font-size: 100px;
+    color: rgba(22, 169, 181, 0.5);;
+}
+.icon {
+    text-align: center;
+}
+
+.icon p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(22, 169, 181, 0.5);
+}

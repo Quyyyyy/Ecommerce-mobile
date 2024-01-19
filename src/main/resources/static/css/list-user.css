@@ -1,0 +1,92 @@
+.row-col{
+    margin: 30px 15px 50px 15px;
+    padding: 5px;
+    background: #fff;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+}
+
+.row-col .filter-order{
+    margin: 30px;
+    font-size: 0;
+    display: flex;
+}
+
+.btn-filter{
+    width: 36px;
+    height: 35px;
+    border: none;
+    border-radius: 10px;
+    cursor:pointer;
+    border-top-right-radius:0 ;
+    border-bottom-right-radius:0 ;
+}
+
+.filter-order select{
+    height: 35px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    padding-left: 11px;
+    width: 250px;
+    background: #f1f1f1;
+    border-top-left-radius:0 ;
+    border-bottom-left-radius:0 ;
+}
+
+.add-user{
+    margin:20px 25px;
+    padding: 10px 25px;
+    background: #23b7e5;
+    color: #fff;
+    box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+    border: none;
+    text-align: center;
+    cursor: pointer;
+}
+
+.row-col table{
+    text-indent: initial;
+    border-spacing: 2px;
+    border-collapse: collapse;
+    margin:5px 25px 40px 25px;
+    width: 95%;
+    border:0 solid #23b7e5 ;
+}
+
+.row-col table tr{
+    display: table-row;
+    border-color: inherit;
+}
+
+.row-col table th{
+    border: 1px solid #aaa;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background:-webkit-linear-gradient(top, #202c4f, #5e698b);
+    color: #ddd;
+}
+
+.row-col table td{
+    border: 1px solid #aaa;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    color: #333;
+}
+
+.page-number{
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.page-number button{
+    padding: 5px 9px;
+    border: none;
+    background: #f1f1f1;
+    cursor: pointer;
+}
+
+.page-number .active{
+    background: #aaa;
+}

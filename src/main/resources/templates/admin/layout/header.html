@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header class="header">
+    <div class="page-brand">
+        <a class="link" th:href="@{/admin/home}">
+                    <span class="brand">Admin
+                        <span class="brand-tip">CAST</span>
+                    </span>
+            <span class="brand-mini">AC</span>
+        </a>
+    </div>
+    <div class="form-search">
+        <ul class="navbar">
+            <li>
+                <a class="icon"><i class="ti-menu"></i></a>
+            </li>
+            <li>
+                <form class="navbar-search" action="javascript:;">
+                    <div class="rel">
+                        <span class="search-icon"><i class="ti-search"></i></span>
+                        <input class="form-control" placeholder="Search here...">
+                    </div>
+                </form>
+            </li>
+        </ul>
+        <ul class="navbar">
+            <li class="dropdown-user">
+                <a class="nav-link" data-toggle="dropdown">
+                    <img th:src="@{${url}+ 'img/admin-avatar.png'}" />
+                    <span>Admin</span><i class="fa fa-angle-down"></i></a>
+                <ul class="dropdown-menu">
+                    <a class="dropdown-item" href=""><i class="fa fa-user"></i>Profile</a>
+                    <a class="dropdown-item" href=""><i class="fa fa-cog"></i>Settings</a>
+                    <a class="dropdown-item" href=""><i class="fa fa-support"></i>Support</a>
+<!--                    <li class="dropdown-divider"></li>-->
+                    <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i>Logout</a>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</header>
+</body>
+</html>

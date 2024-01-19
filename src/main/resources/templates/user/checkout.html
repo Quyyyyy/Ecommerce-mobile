@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/checkout.css}" type="text/css">
+</head>
+<body>
+<div th:replace="user/layout/header :: .container-menu"></div>
+<div th:replace="user/layout/header :: #back-to-top"></div>
+
+<div class="content">
+    <div class="content-page">
+        <div class="lienhe">
+            <div>
+                <div class="headerlienhe">
+                    <h2>Thông tin đặt hàng </h2>
+                </div>
+                <form th:action="@{/create-payment}" method="post">
+                    <table>
+                        <input type="text" name="id" value="" hidden="true">
+                        <tr>
+                            <th>Họ và tên</th>
+                            <td><input type="text" name="name" size="40" maxlength="40" placeholder="  Họ tên"
+                                       autocomplete="off" required></td>
+                        </tr>
+                        <tr>
+                            <th>Điện thoại liên hệ</th>
+                            <td><input type="text" name="phone" size="40" maxlength="11" minlength="10"
+                                       placeholder="  Điện thoại" required ></td>
+                        </tr>
+                        <tr>
+                            <th>Email</th>
+                            <td><input type="email" name="email" size="40" placeholder="  Email" autocomplete="off" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Địa chỉ</th>
+                            <td><input type="text" name="address" size="40" maxlength="100" placeholder="  Địa chỉ" required>
+                        </tr>
+                        <tr>
+                            <th>Phương thức thanh toán:</th>
+                            <td>
+                                <div class="radio-container">
+                                    <input type="radio" id="SHIP_COD" name="fav_language" value="SHIP_COD">
+                                    <label for="SHIP_COD" class="radio-label">COD (Thanh toán khi nhận hàng)</label>
+                                </div>
+
+                                <div class="radio-container">
+                                    <input type="radio" id="card" name="fav_language" value="VNPAY">
+                                    <label for="card" class="radio-label">VNPAY</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><button type="submit">Thanh toán</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="thongtinnhom">
+            <th:block th:if="${session.cart != null and not #lists.isEmpty(session.cart.items)}">
+            <div class="headerthongtinnhom">
+                <h2>Thông tin đơn hàng </h2>
+            </div>
+            <table>
+                <thead>
+                <tr>
+<!--                    <th>STT</th>-->
+                    <th>Hình Ảnh</th>
+                    <th>Tên Sản Phẩm</th>
+                    <th>Giá</th>
+                    <th>Số Lượng</th>
+                    <th>Tổng Giá</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item:${session.cart.items}">
+<!--                    <td th:text="${session.cart.items.indexOf(item)+1}"></td>-->
+                    <td><img th:src="@{${url}+${item.product.avatar}}" style="width: 100%"></td>
+                    <td>
+                        <a th:href="@{'/detail/'+${item.product.id}}" th:text="${item.product.title}"></a>
+                    </td>
+                    <td class="alignRight" th:text="${#numbers.formatInteger(item.price,3,'POINT')}+' VNĐ'"></td>
+                    <td th:text="${item.quantity}"></td>
+                    <td th:text="${#numbers.formatInteger(item.price*item.quantity,3,'POINT')}+' VNĐ'"></td>
+                </tr>
+                </tbody>
+            </table>
+            </th:block>
+        </div>
+    </div>
+</div>
+
+<div th:replace="user/layout/footer"></div>
+</body>
+</html>

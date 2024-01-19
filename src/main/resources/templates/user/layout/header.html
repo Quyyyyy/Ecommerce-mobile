@@ -1,0 +1,71 @@
+<header xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container-menu">
+        <div class = "Menu">
+            <div class="logo">
+                <a th:href="@{/index}"> <img th:attr="src=@{${url} + 'img/logo.png'}" style="width: 100%; margin-top: 3px;"> </a>
+            </div>
+            <div class="search">
+                <form th:action="@{/tim-kiem}" th:method="GET">
+                    <input id="searchContent" name="content" type="text" placeholder="  Bạn cần tìm gì?" required>
+                    <button class="btn-search" type="submit">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </form>
+<!--                <input id="searchContent" type="text" placeholder="  Bạn cần tìm gì?">-->
+<!--                <button class="btn-search" type="submit">-->
+<!--                    <i class="fa fa-search" aria-hidden="true"></i>-->
+<!--                </button>-->
+            </div>
+            <ul class="topnav">
+                <li>
+                    <a th:href="@{/index}">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <p>Trang chủ</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/filter}">
+                        <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                        <p>Sản phẩm</p>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/cart}">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <p>Giỏ hàng</p>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/contact}">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                        <p>Giới thiệu</p>
+                    </a>
+                </li>
+                <li>
+
+                    <a th:href="@{/login}" th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <p>Đăng nhập</p>
+                    </a>
+                    <a th:href="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <p th:text="${#authentication.principal.username}"></p>
+                    </a>
+
+                    <!-- Nếu người dùng chưa xác thực, hiển thị nút Login -->
+<!--                    <a th:href="@{/login}" th:inline="text" th:unless="${#authorization.expression('isAuthenticated')}">-->
+<!--                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>-->
+<!--                        <p>Đăng nhập</p>-->
+<!--                    </a>-->
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a th:onclick="|topFunction()|" id="back-to-top" title="Go to top">
+        <div class="top">
+            <i class="fa fa-lg fa-chevron-up" aria-hidden="true" style="zoom: 0.75;"></i>
+        </div>
+    </a>
+</header>

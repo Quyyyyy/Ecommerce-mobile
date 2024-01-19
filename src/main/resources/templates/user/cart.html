@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/gio-hang.css}" type="text/css">
+</head>
+<body>
+    <div th:replace="user/layout/header :: .container-menu"></div>
+    <div th:replace="user/layout/header :: #back-to-top"></div>
+
+    <div class="content">
+        <div class="content-page">
+            <th:block th:if="${session.cart != null and not #lists.isEmpty(session.cart.items)}">
+            <table class="listSanPham">
+                <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Xoá</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item:${session.cart.items}" th:id="'row_'+ ${item.product.id}">
+                    <td th:text="${session.cart.items.indexOf(item)+1}"></td>
+                    <td><img th:src="@{${url}+${item.product.avatar}}" ></td>
+                    <td class="noPadding">
+                        <a th:href="@{'/detail/'+${item.product.id}}" th:text="${item.product.title}"></a>
+                    </td>
+                    <td class="alignRight" th:text="${#numbers.formatInteger(item.price,3,'POINT')}+' VNĐ'"></td>
+                    <td class="soluong">
+                        <button th:onclick="|addMoreCart('${item.product.id}',-1)|"><i class="fa fa-minus"></i></button>
+                        <input type="number" size="1" th:id="'num_'+${item.product.id}"
+                               th:onchange="|fixCartNum('${item.product.id}')|" th:value="${item.quantity}"/>
+                        <button th:onclick="|addMoreCart('${item.product.id}',1)|"><i class="fa fa-plus"></i></button>
+                    </td>
+                    <td>
+                        <span th:id="'total_'+ ${item.product.id}" th:text="${#numbers.formatInteger(item.price*item.quantity,3,'POINT')}+' VNĐ'"></span>
+                    </td>
+                    <td>
+                        <button th:onclick="|updateCart('${item.product.id}', 0)|"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="thanhtien">
+                <p>Thành tiền: <span class="gia" th:text="${#numbers.formatInteger(session.totalPrices,3,'POINT')}+' VNĐ'"></span></p>
+            </div>
+            <div class="delete">
+                <a th:href="@{/cart/checkout}"><input type="button" class="deleteall" value="Thanh toán"></a>
+            </div>
+            </th:block>
+            <th:block th:if="${mess == 'CART_NULL'}">
+                <div class="icon">
+                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>
+                    <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>
+                </div>
+            </th:block>
+            <th:block th:if="${mess == 'NOT_ENOUGH'}">
+                <div class="icon">
+                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>
+                    <p>Xin lỗi, sản phẩm mà bạn cho không còn đủ số lượng</p>
+                </div>
+            </th:block>
+            <th:block th:if="${mess == 'PAYMENT_MISSING'}">
+                <div class="icon">
+                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>
+                    <p>Vui lòng lựa chọn phương thức thanh toán khác</p>
+                </div>
+            </th:block>
+            <th:block th:if="${mess == 'OK'}">
+                <div class="icon">
+                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>
+                    <p>Đặt hàng thành công</p>
+                </div>
+            </th:block>
+            <th:block th:if="${session.cart != null and mess == 'FAILED'}">
+                <div class="icon">
+                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>
+                    <p>Đặt hàng không thành công, vui lòng kiểm tra lại</p>
+                </div>
+            </th:block>
+        </div>
+    </div>
+
+    <div th:replace="user/layout/footer"></div>
+    <script th:inline="javascript">
+        function addMoreCart(id,delta){
+            num = parseInt($('#num_'+id).val())
+            num += delta
+            $('#num_'+id).val(num)
+            updateCart(id,num)
+        }
+        function fixCartNum(id){
+            $('#num_'+id).val(Math.abs($('#num_'+id).val()))
+            updateCart(id,$('#num_'+id).val())
+        }
+
+        function updateCart(productId,num){
+            $.ajax({
+                type:'POST',
+                url:'/ajax/update-cart/'+productId,
+                data:{
+                    "num":num,
+                },
+                success:function (response){
+                    if(response.cart_empty === 0 || response.totalItems === 0){
+                        $('.content-page').empty();
+                        $('.content-page').html('<div class="icon">\n' +
+                            '                    <span class="icon-container"><i class="bi bi-bag-x"></i></span>\n' +
+                            '                    <p>Không có sản phẩm nào trong giỏ hàng của bạn</p>\n' +
+                            '                </div>');
+                    }else {
+                        if (parseInt(response.num) <= 0) {
+                            $('#row_' + productId).remove();
+                            $('.gia').html((response.totalPrices).toLocaleString('en-US') + ' VNĐ');
+                        } else {
+                            $('#num_' + productId).val(response.num);
+                            $('#total_' + productId).html((response.total).toLocaleString('en-US') + ' VNĐ');
+                            $('.gia').html((response.totalPrices).toLocaleString('en-US') + ' VNĐ');
+                        }
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+.fil{
+    max-width: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+}
+
+.cate{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.product-list.container{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.product{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    width: 240px;
+    margin: 6px;
+    text-align: center;
+    /*font-family: arial;*/
+    background-color: #fff;
+    padding-bottom: 20px;
+}
+
+.titlePrice{
+    display: grid;
+}
+.titlePrice a{
+    text-align: left;
+    margin-right: 3px;
+}
+.price{
+    text-align: left;
+}
+.ratingresult{
+    margin-left: 13px;
+}
+.pageNum{
+    cursor: pointer;
+    background: #151f3c;
+    color: white;
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+.listPage{
+    text-align: center;
+}
+
+.pageNum.currentPage{
+    color: #288ad6;
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + '../css/add-user.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Add Product Form</div>
+                            <div class="ibox-tools">
+                                <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-body">
+                            <th:block th:object="${product}" th:if="${product != null}">
+                                <div class="ibox-body">
+                                    <form th:action="@{/admin/products/create}" method="post" enctype="multipart/form-data">
+                                        <input  name="id" type="text" th:field="*{id}" hidden="hidden"/>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Title</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="title" th:field="*{title}" type="text" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Brand</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="brand" type="text" th:field="*{brand}" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Price</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="price" type="text" th:field="*{price}" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Discount</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="discount" type="text" th:field="*{discount}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Quantity</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="quantity" type="text" th:field="*{quantity}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Avatar</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="avatar" type="file" th:field="*{avatar}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Symbol</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="symbol" type="text" th:field="*{symbol}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Details</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="details" type="text" th:field="*{details}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Pin</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="pin" type="text" th:field="*{pin}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Ram</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="ram" type="text" th:field="*{ram}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Rom</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="rom" type="text" th:field="*{rom}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">CPU</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="CPU" type="text" th:field="*{CPU}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">KT màn hình</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="KTmanHinh" type="text" th:field="*{KTmanHinh}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Camera trước</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="cameraTruoc" type="text" th:field="*{cameraTruoc}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Camera sau</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="cameraSau" type="text" th:field="*{cameraSau}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Categories</label>
+                                            <div class="col-sm-10" style="margin-top: 8px">
+                                                <label class="ui-checkbox" >
+                                                    <input type="radio" name="categories" th:value="${product.categories.id}" checked>
+                                                    <span class="input-span1"></span><th:block th:text="${product.categories.name}"></th:block>
+                                                </label>
+                                                <label class="ui-checkbox" th:each="cate : ${categories}" th:unless="${product.categories.id == cate.id}">
+                                                    <input type="radio" name="categories" th:value="${cate.id}">
+                                                    <span class="input-span1"></span><th:block th:text="${cate.name}"></th:block>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 m-auto">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${product == null}">
+                                <div class="ibox-body">
+                                    <form th:action="@{/admin/products/create}" method="post" enctype="multipart/form-data">
+                                        <input  name="id" type="text"  hidden="hidden"/>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Title</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="name"  type="text" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Brand</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="phone" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Price</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="email" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Discount</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="discount" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Quantity</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="quantity" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Avatar</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="avatar" type="file" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Symbol</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="symbol" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Details</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="details" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Pin</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="pin" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Ram</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="ram" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Rom</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="rom" type="text" >
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">CPU</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="CPU" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">KT màn hình</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="KTmanHinh" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Camera trước</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="cameraTruoc" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Camera sau</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="cameraSau" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Categories</label>
+                                            <div class="col-sm-10" style="margin-top: 8px">
+                                                <label class="ui-checkbox" th:each="cate:${categories}">
+                                                    <input type="radio" name="categories" th:value="${cate.id}">
+                                                    <span class="input-span1"></span><th:block th:text="${cate.name}"></th:block>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 m-auto">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+</body>
+</html>

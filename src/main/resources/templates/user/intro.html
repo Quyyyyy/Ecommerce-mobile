@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/intro.css}" type="text/css">
+</head>
+<body>
+<div>
+    <div th:replace="user/layout/header :: .container-menu"></div>
+    <div th:replace="user/layout/header :: #back-to-top"></div>
+
+
+    <div class="content">
+        <div class="content-page">
+            <div class="phan2">
+                <div class="info">
+                    <b>Địa chỉ:</b> 96A Trần Phú, P. Mộ Lao, Hà Đông, Hà Nội<br /><br />
+                    <b>Telephone:</b> 0123456789<br /><br />
+                    <b>Hotline:</b> 12345678<br /><br />
+
+                    <b>E-mail:</b> mbshop@gmail.com<br /><br />
+                    <b>Mã số thuế:</b> 01 02 03 04 05<br /><br />
+
+                    <b>Số TK:</b> 0123456789 <br /><br />
+                    <b>Tại Ngân hàng:</b> Viettinbank<br /><br /><br /><br />
+                </div>
+                <div class="ggmap">
+
+                    <p><iframe th:src="@{https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2377.047905436281!2d105.7861024999787!3d20.980965400359043!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135accdd8a1ad71%3A0xa2f9b16036648187!2zSOG7jWMgdmnhu4duIEPDtG5nIG5naOG7hyBCxrB1IGNow61uaCB2aeG7hW4gdGjDtG5n!5e0!3m2!1svi!2s!4v1652710005304!5m2!1svi!2s}"
+                               loading="lazy"
+                               referrerpolicy="no-referrer-when-downgrade"><a
+                            th:href="@{https://www.maps.ie/create-google-map/}">Embed
+                        Google Map
+                    </a>
+                    </iframe>
+                        <br />
+                    </p>
+                </div>
+            </div>
+            <div class="phan3">
+                <div class="lienhe">
+                    <div>
+                        <div class="headerlienhe">
+                            <h2>Gửi ý kiến đóng góp phản hồi: </h2>
+                        </div>
+                        <form th:action="@{/contact-us}" th:method="POST">
+                            <table>
+                                <tr>
+                                    <td>Họ và tên</td>
+                                    <td><input type="text" name="name" size="40" maxlength="40" placeholder="Họ tên"
+                                               autocomplete="off" required></td>
+                                </tr>
+                                <tr>
+                                    <td>Điện thoại liên hệ</td>
+                                    <td><input type="text" name="phone" size="40" maxlength="11" minlength="10"
+                                               placeholder="Điện thoại" required ></td>
+                                </tr>
+                                <tr>
+                                    <td>Địa chỉ Email</td>
+                                    <td><input type="text" name="email" size="40" placeholder="Email" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Tiêu đề</td>
+                                    <td><input type="text" name="title" size="40" maxlength="100" placeholder="Tiêu đề" required>
+                                </tr>
+                                <tr>
+                                    <td>Nội dung</td>
+                                    <td><textarea name="content" rows="5" cols="44" maxlength="500"
+                                                  placeholder="Nội dung " required></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <span th:if="${mes != null}" th:text="${mes}"></span>
+                                        <button type="submit">Gửi thông tin liên hệ</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="user/layout/footer"></div>
+</div>
+
+</body>
+</html>

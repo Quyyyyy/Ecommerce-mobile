@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav class="page-sidebar" id="sidebar">
+  <div id="sidebar-collapse">
+    <div class="admin-block">
+      <div>
+        <img th:src="@{${url}+'img/admin-avatar.png'}" width="45px" />
+      </div>
+      <div class="admin-info">
+        <div class="font-strong" th:text="${#authentication.principal.username}"></div><small>Administrator</small></div>
+    </div>
+    <ul class="side-menu">
+      <li>
+        <a  class="menu-link" th:href="@{/admin/home}"><i class="sidebar-item-icon fa fa-th-large"></i>
+          <span class="nav-label">Dashboard</span>
+        </a>
+      </li>
+      <span class="heading">FEATURES</span>
+      <li>
+        <a  class="menu-link" th:href="@{/admin/users}"><i class="sidebar-item-icon fa fa-users"></i>
+          <span class="nav-label">Users</span></a>
+      </li>
+      <li>
+        <a  class="menu-link" th:href="@{/admin/categories}"><i class="sidebar-item-icon fa fa-align-right"></i>
+          <span class="nav-label">Categories</span></a>
+      </li>
+      <li>
+        <a class="menu-link" th:href="@{/admin/products}"><i class="sidebar-item-icon fa fa-product-hunt"></i>
+          <span class="nav-label">Products</span></a>
+      </li>
+      <li>
+        <a class="menu-link" th:href="@{/admin/orders}"><i class="sidebar-item-icon fa fa-cart-plus"></i>
+          <span class="nav-label">Orders</span><i class="fa fa-angle-left arrow"></i></a>
+      </li>
+<!--      <li>-->
+<!--        <a class="menu-link" href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>-->
+<!--          <span class="nav-label">Statistics</span><i class="fa fa-angle-left arrow"></i></a>-->
+<!--      </li>-->
+      <li>
+        <a class="menu-link" href="icons.html"><i class="sidebar-item-icon fa fa-comments-o"></i>
+          <span class="nav-label">Feedbacks</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>

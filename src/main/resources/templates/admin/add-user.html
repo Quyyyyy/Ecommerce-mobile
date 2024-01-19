@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + '../css/add-user.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Add User Form</div>
+                            <div class="ibox-tools">
+                                <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-body">
+                            <th:block th:object="${user}" th:if="${user != null}">
+                                <div class="ibox-body">
+                                    <form th:action="@{/admin/users/create}" method="post" class="form-horizontal">
+                                        <input  name="id" type="text" th:field="*{id}" hidden="hidden"/>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="name" th:field="*{name}" type="text" placeholder="Họ tên">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Phone</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="phone" type="text" th:field="*{phone}" placeholder="Số điện thoại">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Email</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="email" type="email" th:field="*{email}" placeholder="Email address">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Address</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="address" type="text" th:field="*{address}" placeholder="Địa chỉ">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Username</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="username" type="text" th:field="*{username}" placeholder="username">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Role</label>
+                                            <div class="col-sm-10" style="margin-top: 8px">
+                                                <label class="ui-checkbox" th:each="role:${user.roles}">
+                                                <input type="checkbox" name="roles" th:value="${role.id}" checked>
+                                                <span class="input-span"></span><th:block th:text="${role.name}"></th:block>
+                                            </label>
+                                            <label class="ui-checkbox" th:each="rol : ${roles}">
+                                                <th:block th:unless="${#lists.contains(user.roles, rol)}">
+                                                <input type="checkbox" name="roles" th:value="${rol.id}">
+                                                <span class="input-span"></span><th:block th:text="${rol.name}"></th:block>
+                                                    <th:break />
+                                                </th:block>
+                                            </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 m-auto">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${user == null}">
+                            <div class="ibox-body">
+                                <form th:action="@{/admin/users/create}" method="post" class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Name</label>
+                                        <div class="col-sm-10">
+                                            <input required class="control" name="name" type="text" placeholder="Họ tên">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Phone</label>
+                                        <div class="col-sm-10">
+                                            <input required class="control" name="phone" type="text" placeholder="Số điện thoại">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input required class="control" name="email" type="email" placeholder="Email address">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Address</label>
+                                        <div class="col-sm-10">
+                                            <input class="control" name="address" type="text" placeholder="Địa chỉ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Username</label>
+                                        <div class="col-sm-10">
+                                            <input required class="control" name="username" type="text" placeholder="username">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Password</label>
+                                        <div class="col-sm-10">
+                                            <input class="control" name="password" type="password" placeholder="password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Role</label>
+                                        <div class="col-sm-10" style="margin-top: 8px">
+                                            <label class="ui-checkbox" th:each="role:${roles}">
+                                                <input type="checkbox" name="roles" th:value="${role.id}">
+                                                <span class="input-span"></span><th:block th:text="${role.name}"></th:block>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-10 m-auto">
+                                            <button class="btn btn-info" type="submit">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            </th:block>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+</body>
+</html>

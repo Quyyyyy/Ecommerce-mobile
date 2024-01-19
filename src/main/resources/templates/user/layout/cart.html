@@ -1,0 +1,12 @@
+<th:block th:if="${session.cart != null and not #lists.isEmpty(session.cart.items)}">
+    <div class="cart_icon" style="display: block">
+        <span id="cart" class="cart_count" th:text="${session.totalItems}"></span>
+        <a th:href="@{/cart}"><img th:src="@{../img/cart.png}"></a>
+    </div>
+</th:block>
+<th:block th:unless="${session.cart != null and not #lists.isEmpty(session.cart.items)}">
+    <div class="cart_icon" id="cartIcon" style="display: none">
+        <span id="cart" class="cart_count" th:text="${session.totalItems}"></span>
+        <a th:href="@{/cart}"><img th:src="@{../img/cart.png}"></a>
+    </div>
+</th:block>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/login.css}" type="text/css">
+</head>
+<body>
+<div>
+    <div th:replace="user/layout/header :: .container-menu"></div>
+    <div th:replace="user/layout/header :: #back-to-top"></div>
+
+
+    <div class="content">
+        <div class="main-body">
+            <form th:action="@{/login}" method="post" class="form-login" id="form-1">
+                <div class="form-content">
+                    <div class="form-header">
+                        <p>MBShop</p>
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="form-label">Tài khoản</label>
+                            <input name="username" type="text" placeholder="Nhập tài khoản hoặc email" class="form-control" onblur="isRequired('#email')">
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label  class="form-label">Mật khẩu</label>
+                            <input  name="password" type="password" placeholder="Nhập mật khẩu" class="form-control" >
+                            <span class="form-message"></span>
+                        </div>
+                    </div>
+                    <div class="text-footer">
+                        <p>Chưa có tài khoản?</p>
+                        <a th:href="@{/register}" style="text-decoration:none;">Đăng ký ngay</a>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="form-submit" style="padding-top:10px">ĐĂNG NHẬP</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <div th:replace="user/layout/footer"></div>
+</div>
+
+</body>
+</html>

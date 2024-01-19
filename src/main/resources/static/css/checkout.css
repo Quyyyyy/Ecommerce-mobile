@@ -1,0 +1,129 @@
+body {
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.content-page{
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+/*.lienhe{*/
+/*    !*margin: 0 auto;*!*/
+/*    max-width: 50%;*/
+/*}*/
+
+.lienhe table{
+    /*margin: 0 auto;*/
+    border-collapse: separate;
+    border-spacing: 10px;
+}
+
+.lienhe th{
+    text-align: start;
+    font-size: 18px;
+}
+
+.lienhe td:nth-child(5n){
+    display: block;
+    align-items: start;
+}
+
+.lienhe table input,textarea{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: start;
+    padding: 9px 0px;
+    width: 100%;
+}
+
+#SHIP_COD{
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+}
+
+#card{
+    width: 13px;
+    height: 13px;
+    margin-right: 10px;
+}
+
+
+.radio-container {
+
+    display: flex;
+    /*justify-content: start;*/
+    align-items: start;
+    font-weight: normal;
+    margin: 10px;
+}
+
+/*.radio-label {*/
+/*    margin-left: 10px;*/
+/*}*/
+
+.lienhe table button{
+    display: block;
+    overflow: hidden;
+    border-radius: 7px;
+    font-size: 16px;
+    line-height: normal;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: #202c4f;
+    border: 1px solid transparent;
+    padding: 10px 5px;
+    width: 100%;
+    margin-top:9px;
+}
+
+.lienhe table button:hover{
+    background: -webkit-linear-gradient(top, #ea2424, #871010);
+}
+
+/*.thongtinnhom{*/
+/*    max-width: 50%;*/
+/*}*/
+
+.headerlienhe{
+    margin-top: 50px;
+    text-align: center;
+}
+
+.headerthongtinnhom{
+    margin-top:50px;
+    text-align: center;
+}
+
+.thongtinnhom table{
+    text-indent: initial;
+    border-spacing: 2px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.thongtinnhom th{
+    border: 1px solid #fff;
+    padding: 12px;
+    text-align: center;
+    background:-webkit-linear-gradient(top, #202c4f, #5e698b);
+    color: #ddd;
+}
+
+.thongtinnhom td{
+    border: 1px solid #fff;
+    padding: 12px;
+    text-align: center;
+}
+
+.thongtinnhom td:nth-child(1n) {
+    /* CSS dành cho mỗi td thứ 2 */
+    max-width: 100px; /* Một ví dụ về màu nền khác */
+    max-height: 50px;
+}

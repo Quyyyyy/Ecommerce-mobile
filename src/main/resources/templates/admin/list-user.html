@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + '../css/list-user.css'}">
+    <link rel="stylesheet" th:href="@{${url} + '../css/modal.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!--Modal-->
+    <div class="modal">
+        <div class="row-col1">
+            <div class="ibox1">
+                <div class="ibox-head">
+                    <div class="ibox-title">Info User Form</div>
+                    <div class="ibox-tools">
+                        <a th:onclick="|hide()|"  class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <div class="ibox-body">
+                        <form class="form-horizontal">
+                            <input  name="id" type="text" hidden="true" />
+                            <div class="form-group">
+                                <label class="col-form-label">Name</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="name" type="text" placeholder="Họ tên">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Phone</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="phone" type="text" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="email" type="email" placeholder="Email address">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Address</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="address" type="text" placeholder="Địa chỉ">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Username</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="username" type="text" placeholder="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Status</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="status" type="text" placeholder="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Created:</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="created" type="text" placeholder="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Updated</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="updated" type="text" placeholder="username">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <button class="add-user" th:onclick="|addUser()|">Add User</button>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Hộ tên</th>
+                                <th>Email</th>
+                                <th>Mức quyền</th>
+<!--                                <th>Trang thái</th>-->
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user:${users}">
+                            <td th:text="${users.indexOf(user)+1}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td>
+                                <span th:each="role:${user.roles}" th:text="${role.name}+' '"></span>
+                            </td>
+                            <td>
+                                <a th:data-user-name="${user.name}" th:data-user-id="${user.id}"
+                                   th:data-user-address="${user.address}"
+                                   th:data-user-username="${user.username}"
+                                   th:data-user-phone="${user.phone}"
+                                   th:data-user-email="${user.email}"
+                                   th:data-user-status="${user.status}"
+                                   th:data-user-create="${user.created}"
+                                   th:data-user-update="${user.updated}"
+                                   th:onclick="|showUser(this)|"><i class="fa-solid fa-eye"></i>&nbsp;&nbsp;</a>
+                                <a th:href="@{'/admin/users/'+${user.id}}"><i class="fa-solid fa-user-pen"></i>&nbsp;&nbsp;</a>
+                                <a th:onclick="|deleUser('${user.id}')|"><i class="fa-solid fa-eraser"></i>&nbsp;&nbsp;</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="page-number">
+                        <th:block th:if="${result.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result.totalPages - 1)}">
+                            <button th:if="${i == result.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                            <button th:unless="${i == result.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                        </th:block>
+                        <th:block th:if="${result.totalPages == 0}">
+                            <button class="pageNum currentPage" th:text="${result.pageNo +1}"></button>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+<script th:inline="javascript">
+    function addUser(){
+        window.location.href = '/admin/users/create';
+    }
+
+    function deleUser(id){
+        $.ajax({
+            type:"DELETE",
+            url:"/admin/users/" + id,
+            success:function (response){
+                alert(response);
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Đã xảy ra lỗi khi xóa');
+            }
+
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + 'css/list-user.css'}">
+    <link rel="stylesheet" th:href="@{${url} + 'css/modal.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!--Modal-->
+    <div class="modal">
+        <div class="row-col1">
+            <div class="ibox1">
+                <div class="ibox-head">
+                    <div class="ibox-title">Info Product</div>
+                    <div class="ibox-tools">
+                        <a th:onclick="|hide()|"  class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                        <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                    </div>
+                </div>
+                <div class="ibox-body">
+                    <div class="ibox-body">
+                        <form class="form-horizontal">
+                            <input  name="id" type="text" hidden="true" />
+                            <div class="form-group">
+                                <label class="col-form-label">Title</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="title" type="text" placeholder="Họ tên">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Brand</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="brand" type="text" placeholder="Số điện thoại">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="category" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">CPU</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="cpu" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Camera trước</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="camera_truoc" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Camera sau</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="camera_sau" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">KT màn hình</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="KTmanHinh" type="text">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Rom</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="rom" type="text" placeholder="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Ram</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="ram" type="text" placeholder="username">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Pin</label>
+                                <div class="col-sm-10">
+                                    <input class="control" name="pin" type="text" placeholder="username">
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <button class="add-user" th:onclick="|addPro()|">Add Product</button>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Image</th>
+                            <th>Title</th>
+                            <th>Brand</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pro:${products}">
+                            <td th:text="${products.indexOf(pro)+1}"></td>
+                            <td><img th:src="@{${url}+ ${pro.avatar}}" style="width:100px;height: 100px"></td>
+                            <td th:text="${pro.title}"></td>
+                            <td th:text="${pro.brand}"></td>
+                            <td th:text="${pro.categories.name}"></td>
+                            <td th:text="${pro.quantity}"></td>
+                            <td th:text="${#numbers.formatInteger(pro.discount,3,'POINT')}+' VNĐ'"></td>
+                            <td>
+                                <a th:data-pro-title="${pro.title}" th:data-pro-id="${pro.id}"
+                                   th:data-pro-bran="${pro.brand}"
+                                   th:data-pro-category="${pro.categories.name}"
+                                   th:data-pro-cpu="${pro.CPU}"
+                                   th:data-pro-camtrc="${pro.cameraTruoc}"
+                                   th:data-pro-camsau="${pro.cameraSau}"
+                                   th:data-pro-kt="${pro.KTmanHinh}"
+                                   th:data-pro-rom="${pro.rom}"
+                                   th:data-pro-ram="${pro.ram}"
+                                   th:data-pro-pin="${pro.pin}"
+                                   th:onclick="|showPro(this)|"><i class="fa-solid fa-eye"></i>&nbsp;&nbsp;</a>
+                                <a th:href="@{'/admin/products/'+${pro.id}}"><i class="fa-solid fa-user-pen"></i>&nbsp;&nbsp;</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="page-number">
+                        <th:block th:if="${result.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result.totalPages - 1)}">
+                            <button th:if="${i == result.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                            <button th:unless="${i == result.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                        </th:block>
+                        <th:block th:if="${result.totalPages == 0}">
+                            <button class="pageNum currentPage" th:text="${result.pageNo +1}"></button>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+<script th:inline="javascript">
+    function addPro(){
+        window.location.href = '/admin/products/create';
+    }
+
+    function delePro(id){
+        $.ajax({
+            type:"DELETE",
+            url:"/admin/users/" + id,
+            success:function (response){
+                alert(response);
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+                alert('Đã xảy ra lỗi khi xóa');
+            }
+
+        })
+    }
+</script>
+</body>
+</html>

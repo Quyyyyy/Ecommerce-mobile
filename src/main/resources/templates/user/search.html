@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/search.css}" type="text/css">
+</head>
+<body>
+<div>
+    <div th:replace="user/layout/header :: .container-menu"></div>
+    <div th:replace="user/layout/header :: #back-to-top"></div>
+
+
+    <div>
+        <div th:replace="user/layout/banner:: banner"></div>
+<!--        <div class="company-menu">-->
+<!--            <div class="company-menu-line">-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'apple')"><img th:src="@{../../img/images/company/Apple.jpg}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'coolpad')"><img th:src="@{../../img/images/company/Coolpad.png}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'xiaomi')"><img th:src="@{../../img/images/company/Xiaomi.png}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'huawei')"><img th:src="@{../../img/images/company/Huawei.jpg}"></a>-->
+<!--            </div>-->
+<!--            <div class="company-menu-line">-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'samsung')"><img th:src="@{../../img/images/company/Samsung.jpg}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'oppo')"><img th:src="@{../../img/images/company/Oppo.jpg}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'nokia')"><img th:src="@{../../img/images/company/Nokia.jpg}"></a>-->
+<!--                <a href="#" onclick="layUrl('thuong-hieu', 'realme')"><img th:src="@{../../img/images/company/Realme.png}"></a>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="fil">
+<!--            <div class="me">-->
+<!--                <div class="filte-cate">-->
+<!--                    <h4>Danh mục sản phẩm</h4>-->
+<!--                    <ul>-->
+<!--                        <li><a href="#" onclick="deleteUrl('cate')"> Tất cả</a></li>-->
+<!--                        <li><a href="#" onclick="layUrl('cate', 'Flagship')">Sản phẩm cao cấp</a></li>-->
+<!--                        <li><a href="#" onclick="layUrl('cate', 'Mid-range')"> Sản phẩm tầm trung</a></li>-->
+<!--                        <li><a href="#" onclick="layUrl('cate', 'Budget')"> Sản phẩm giá rẻ</a></li>-->
+<!--                    </ul>-->
+<!--                    <h4 class="tit1">Mức giá</h4>-->
+<!--                    <ul>-->
+<!--                        <li><a href="#" onclick="deleteUrl1('minprice','maxprice')"> Tất cả</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('minprice', 1,'maxprice',2000000)"> Dưới 2 triệu</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('minprice', 2000000,'maxprice',4000000)">Từ 2 - 4 triệu</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('minprice', 4000000,'maxprice',7000000)">Từ 4 - 7 triệu</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('minprice', 7000000,'maxprice',13000000)">Từ 7 - 13 triệu</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('minprice', 13000000,'maxprice',999999999)">Trên 13 triệu</a></li>-->
+<!--                    </ul>-->
+<!--                    <h4 class="tit1">Sắp xếp</h4>-->
+<!--                    <ul>-->
+<!--                        <li><a href="#" onclick="deleteUrl1('sortBy','sortDir')"> Tất cả</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('sortBy', 'discount','sortDir','asc')"> Giá tăng dần</a></li>-->
+<!--                        <li><a href="#" onclick="addUrl('sortBy', 'discount','sortDir','desc')"> Giá giảm dần</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="cate">
+                <div class="product-list container">
+                    <div class="product">
+                        <div class="card" th:each="product : ${pros}">
+                            <img th:src="@{${url}+${product.avatar}}" style="width:100%">
+                            </br>
+                            <div class="titlePrice">
+                                <a th:href="@{'/detail/'+${product.id}}" th:text="${product.title}"></a>
+                                <p class="price" th:text="${#numbers.formatInteger(product.discount,3,'POINT')}+' VNĐ'"> </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="listPage">
+                    <th:block th:if="${result.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result.totalPages - 1)}">
+                        <button th:if="${i == result.pageNo}" class="pageNum currentPage" th:text="${i+1}"></button>
+                        <button th:unless="${i == result.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                    </th:block>
+                    <th:block th:if="${result.totalPages == 0}">
+                        <button class="pageNum currentPage" th:text="${result.pageNo +1}"></button>
+                    </th:block>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div th:replace="user/layout/footer"></div>
+    <script th:src="@{../js/category.js}"></script>
+    <div th:replace="user/layout/cart"></div>
+</div>
+
+</body>
+</html>

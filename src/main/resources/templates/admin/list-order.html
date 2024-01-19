@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+<!--    <link rel="stylesheet" th:href="@{${url} + '../css/add-user.css'}">-->
+    <link rel="stylesheet" th:href="@{${url} + '../css/list-user.css'}">
+    <link rel="stylesheet" th:href="@{${url} + '../css/modal.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!--Modal-->
+
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+<!--                <button class="add-user" th:onclick="|addCate()|"></button>-->
+                <div class="row-col">
+                    <div class="filter-order">
+                        <form th:action="@{/admin/orders/filter}" method="get">
+                            <button class="btn-filter" type="submit"><i class="ti-search"></i></button>
+                            <select name="lang" class="lang" required>
+                                <option value="">--Lọc đơn hàng--</option>
+                                <option value="all">Toàn bộ đơn hàng</option>
+                                <option value="moi">Đơn hàng cần duyệt</option>
+                                <option value="dang-giao-hang">Đơn hàng đang vận chuyển</option>
+                                <option value="da-nhan-hang">Đơn hàng đã hoàn thành</option>
+                                <option value="da-huy">Đơn hàng đã hủy</option>
+                            </select>
+                        </form>
+                    </div>
+                    <th:block th:object="${ordersStatus}" th:if="${ordersStatus != null}">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Created</th>
+                                <th>Total Money</th>
+                                <th>Status</th>
+                                <th:block th:if="${lang.equals('mới')}">
+                                    <th>Action</th>
+                                </th:block>
+<!--                                <th>Action</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order:${ordersStatus}">
+                                <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${ordersStatus.indexOf(order)+1}"></a></td>
+                                <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${order.customerName}"></a></td>
+                                <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${order.customerEmail}"></a></td>
+                                <td th:text="${order.created}"></td>
+                                <td th:text="${#numbers.formatInteger(order.total,3,'POINT')}+' VNĐ'"></td>
+                                <td th:id="'num_'+${order.id}" th:text="${order.order_status}"></td>
+                                <th:block th:if="${order.order_status.equals('mới')}">
+                                <td>
+                                        <button th:onclick="|editOrder('${order.id}')|"
+                                        style="border: none;background: #e74c3c;color:#fff;border-radius: 8px;cursor: pointer">Xác nhận</button>
+                                </td>
+                                </th:block>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="page-number">
+                            <th:block th:if="${result1.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result1.totalPages - 1)}">
+                                <button th:if="${i == result1.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                                <button th:unless="${i == result1.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                            </th:block>
+                            <th:block th:if="${result1.totalPages == 0}">
+                                <button class="pageNum currentPage" th:text="${result1.pageNo +1}"></button>
+                            </th:block>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${ordersStatus == null}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Created</th>
+                            <th>Total Money</th>
+                            <th>Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="order:${orders}">
+                            <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${orders.indexOf(order)+1}"></a></td>
+                            <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${order.customerName}"></a></td>
+                            <td><a th:href="@{'/admin/orders/'+${order.id}}" th:text="${order.customerEmail}"></a></td>
+                            <td th:text="${order.created}"></td>
+                            <td th:text="${#numbers.formatInteger(order.total,3,'POINT')}+' VNĐ'"></td>
+                            <td th:text="${order.order_status}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="page-number">
+                        <th:block th:if="${result.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result.totalPages - 1)}">
+                            <button th:if="${i == result.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                            <button th:unless="${i == result.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                        </th:block>
+                        <th:block th:if="${result.totalPages == 0}">
+                            <button class="pageNum currentPage" th:text="${result.pageNo +1}"></button>
+                        </th:block>
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+<script th:inline="javascript">
+    function editOrder(id){
+        $.ajax({
+            type:"PUT",
+            url:"/admin/orders/" + id,
+            success:function (response){
+                $('#num_' + id).text(response);
+            },
+            error: function (error){
+                alert(error);
+            }
+        })
+    }
+</script>
+</body>
+</html>

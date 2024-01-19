@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <div th:replace="user/layout/head::head"></div>
+</head>
+<body>
+<div>
+  <div th:replace="user/layout/header :: .container-menu"></div>
+  <div th:replace="user/layout/header :: #back-to-top"></div>
+
+  <div>
+    <div class="content">
+      <div th:replace="user/layout/banner:: banner"></div>
+
+      <!--            <div class="banner1">-->
+      <!--                <div class="banner-sm">-->
+      <!--                    <div class="category-icon">-->
+      <!--                        <a href="">-->
+      <!--                            <div class="bav">-->
+      <!--                                <img th:src="@{../img/ic-dienthoai-desktop.webp}">-->
+      <!--                            </div>-->
+      <!--                            <p>Smartphone</p>-->
+      <!--                        </a>-->
+      <!--                    </div>-->
+      <!--                    <div class="category-icon">-->
+      <!--                        <a href="">-->
+      <!--                            <div class="bav">-->
+      <!--                                <img th:src="@{../img/icon-laptop.webp}">-->
+      <!--                            </div>-->
+      <!--                            <p>Laptop</p>-->
+      <!--                        </a>-->
+      <!--                    </div>-->
+      <!--                    <div class="category-icon">-->
+      <!--                        <a href="">-->
+      <!--                            <div class="bav">-->
+      <!--                                <img th:src="@{../img/icon-pc.webp}">-->
+      <!--                            </div>-->
+      <!--                            <p>PC</p>-->
+      <!--                        </a>-->
+      <!--                    </div>-->
+      <!--                    <div class="category-icon">-->
+      <!--                        <a href="">-->
+      <!--                            <div class="bav">-->
+      <!--                                <img th:src="@{../img/icon-mtb-desk.webp}">-->
+      <!--                            </div>-->
+      <!--                            <p>Tablet</p>-->
+      <!--                        </a>-->
+      <!--                    </div>-->
+      <!--                    <div class="category-icon">-->
+      <!--                        <a href="">-->
+      <!--                            <div class="bav">-->
+      <!--                                <img th:src="@{../img/icon-smartwatch.webp}">-->
+      <!--                            </div>-->
+      <!--                            <p>Smartwatch</p>-->
+      <!--                        </a>-->
+      <!--                    </div>-->
+      <!--                </div>-->
+      <!--            </div>-->
+
+      <div class="product-container">
+        <div class="product-list">
+          <div class="name-text-container">
+            <p class="name-text">Sản phẩm mới</p>
+          </div>
+          <div class="product">
+            <div class="card" th:each="pro:${news}">
+              <div class="product-promo-container">
+                <div class="product-promo">
+                  <p>mới </p>
+                </div>
+              </div>
+              <img th:src="@{${url}+${pro.avatar}}" style="width:100%">
+              <a th:href="@{'/detail/'+${pro.id}}" th:text="${pro.title}"></a>
+              </br>
+              </br>
+              </br>
+              <p class="price" th:text="${#numbers.formatInteger(pro.discount,3,'POINT')}+' VNĐ'"></p>
+              <div class="ratingresult">
+
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+<!--                <span>34 đánh giá</span>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="banner">
+          <a href="#"><img th:src="@{../../img/images/banners/banner0.gif}" style="width:100%"></a>
+        </div>
+
+        <div class="product-list">
+          <div class="name-text-container">
+            <p class="name-text">Điện thoại cao cấp</p>
+          </div>
+          <div class="product">
+            <div class="card" th:each="pro:${Flagship}">
+              <div class="product-promo-container">
+                <div class="product-promo">
+                  <p>mới </p>
+                </div>
+              </div>
+              <img th:src="@{${url} + ${pro.avatar}}" style="width:100%">
+              <a th:href="@{'/detail/'+${pro.id}}" th:text="${pro.title}"></a>
+              </br>
+              </br>
+              </br>
+              <p class="price" th:text="${#numbers.formatInteger(pro.discount,3,'POINT')}+' VNĐ'"></p>
+              <div class="ratingresult">
+
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+<!--                <span>34 đánh giá</span>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="product-list">
+          <div class="name-text-container">
+            <p class="name-text">Điê thoại tầm trung</p>
+          </div>
+          <div class="product">
+            <div class="card" th:each="pro:${Midrange}">
+              <div class="product-promo-container">
+                <div class="product-promo">
+                  <p>mới </p>
+                </div>
+              </div>
+              <img th:src="@{${url} + ${pro.avatar}}" style="width:100%">
+              <a th:href="@{'/detail/'+${pro.id}}" th:text="${pro.title}"></a>
+              </br>
+              </br>
+              </br>
+              <p class="price" th:text="${#numbers.formatInteger(pro.discount,3,'POINT')}+' VNĐ'"></p>
+              <div class="ratingresult">
+
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+                <!--                                <i class="fa fa-star-o"></i>-->
+<!--                <span>34 đánh giá</span>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="product-list">
+          <div class="name-text-container">
+            <p class="name-text">Sản phẩm giá rẻ</p>
+          </div>
+          <div class="product">
+
+            <div class="card" th:each="pro:${Budget}">
+              <div class="product-promo-container">
+                <div class="product-promo">
+                  <p>mới  </p>
+                </div>
+              </div>
+              <img th:src="@{${url} + ${pro.avatar}}" style="width:100%">
+              <a th:href="@{'/detail/'+${pro.id}}" th:text="${pro.title}"></a>
+              </br>
+              </br>
+              </br>
+              <p class="price" th:text="${#numbers.formatInteger(pro.discount,3,'POINT')}+' VNĐ'"> </p>
+              <div class="ratingresult">
+
+<!--                <i class="fa fa-star"></i>-->
+
+<!--                <i class="fa fa-star-o"></i>-->
+
+<!--                <span></span>-->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div th:replace="user/layout/footer"></div>
+  <div th:replace="user/layout/cart"></div>
+</div>
+
+</body>
+</html>

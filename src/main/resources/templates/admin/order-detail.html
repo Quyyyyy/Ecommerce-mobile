@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + '../css/list-user.css'}">
+    <link rel="stylesheet" th:href="@{${url} + '../css/detail-order.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Chi tiết đơn hàng</div>
+                        </div>
+                        <div class="ibox-body">
+                            <div class="ibox-body">
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Mã đơn hàng:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.orderCode}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Người đặt:</label>
+                                        <div class="col-sm-10">
+                                            <th:block th:if="${order.user !=null}">
+                                                <span th:text="${order.user.name}"></span>
+                                            </th:block>
+                                            <th:block th:unless="${order.user !=null}">
+                                                <span th:text="${order.customerName}"></span>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Người nhận:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.customerName}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Địa chỉ nhận hàng:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.customerAddress}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Số điện thoại:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.customerPhone}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Email:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.customerEmail}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Phương thức thanh toán:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.payment}"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-form-label">Ngày tạo:</label>
+                                        <div class="col-sm-10">
+                                            <span th:text="${order.created}"></span>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ảnh</th>
+                                <th>Title</th>
+                                <th>Số lượng</th>
+                                <th>Giá</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item,itemStat:${order.orderItems}">
+                                <td th:text="${itemStat.count}"></td>
+                                <td><img th:src="@{${url}+${item.product.avatar}}" style="width:100px;height: 100px"></td>
+                                <td th:text="${item.product.title}"></td>
+                                <td th:text="${item.quantity}"></td>
+                                <td th:text="${#numbers.formatInteger(item.priceBuy,3,'POINT')}+' VNĐ'"></td>
+                                <td th:text="${#numbers.formatInteger(item.quantity*item.priceBuy,3,'POINT')}+' VNĐ'"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="total">
+                            <span>Giá trị đơn hàng: <span style="color:#e74c3c" th:text="${#numbers.formatInteger(order.total,3,'POINT')}+' VNĐ'"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div th:replace="admin/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{${url} + '../css/add-user.css'}">
+</head>
+<body>
+<div class="page-wrapper">
+    <!-- START HEADER-->
+    <div th:replace="admin/layout/header :: header"></div>
+
+    <div style="display: flex;">
+        <div th:replace="admin/layout/sidebar :: nav"></div>
+
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content">
+                <div class="row-col">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Add Category Form</div>
+                            <div class="ibox-tools">
+                                <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
+                                <a class="fullscreen-link"><i class="fa fa-expand"></i></a>
+                            </div>
+                        </div>
+                        <div class="ibox-body">
+                            <th:block th:object="${category}" th:if="${category != null}">
+                                <div class="ibox-body">
+                                    <form th:action="@{/admin/categories/create}" method="post" class="form-horizontal">
+                                        <input  name="id" type="text" th:field="*{id}" hidden="hidden"/>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="name" th:field="*{name}" type="text" placeholder="tên loại sản phẩm" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Description</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="description" th:field="*{description}" type="text" placeholder="ghi chú" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 m-auto">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                            <th:block th:if="${category == null}">
+                                <div class="ibox-body">
+                                    <form th:action="@{/admin/categories/create}" method="post" class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Name</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="name" type="text" placeholder="tên loại sản phẩm" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Description</label>
+                                            <div class="col-sm-10">
+                                                <input class="control" name="description" type="text" placeholder="ghi chú" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-10 m-auto">
+                                                <button class="btn btn-info" type="submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </th:block>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div th:replace="admin/layout/footer"></div>
+</div>
+</body>
+</html>
