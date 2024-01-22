@@ -2,6 +2,7 @@ package org.example.webdt.repositories;
 
 import org.example.webdt.dto.SaleData;
 import org.example.webdt.entities.OrderEntity;
+import org.example.webdt.entities.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,4 +30,9 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity,Long> {
 
     @Query(value = "SELECT * FROM orders WHERE order_status =:status ORDER BY (CASE WHEN order_status = 'mới' THEN 0 ELSE 1 END), updated DESC",nativeQuery = true)
     Page<OrderEntity> findAllByStatus(@Param("status") String status, Pageable pageable);
+    Page<OrderEntity> findByUser(UserEntity user,Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders WHERE user_id =:id and order_status =:status",nativeQuery = true)
+    Page<OrderEntity> findByUserAndOrder_status(@Param("id") Long userId,@Param("status") String status, Pageable pageable);
 }
+

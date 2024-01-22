@@ -24,6 +24,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -147,7 +148,8 @@ public class ProductServiceImpl implements ProductService {
             }
             String filename = avatar.getOriginalFilename();
             String[] name = filename.split("\\.");
-            filename = productDto.getTitle()+"."+name[1];
+            String randomID = UUID.randomUUID().toString();
+            filename = productDto.getTitle()+randomID+"."+name[1];
             Path filePath = Paths.get(uploadDir,filename);
             Files.copy(avatar.getInputStream(),filePath);
 

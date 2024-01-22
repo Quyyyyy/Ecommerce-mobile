@@ -2,6 +2,7 @@ package org.example.webdt.services;
 
 import org.example.webdt.dto.ResultResponse;
 import org.example.webdt.dto.UserDto;
+import org.example.webdt.dto.request.ChangePassword;
 import org.example.webdt.dto.request.RegisterRequest;
 import org.example.webdt.dto.request.UserRequest;
 import org.example.webdt.entities.RoleEntity;
@@ -18,4 +19,6 @@ public interface UserService {
     String deleteUser(Long id);
     void register(RegisterRequest userRequest);
     UserEntity findByUsernameOrEmail(String username,String email);
+    String editProfile(UserEntity user,UserRequest userRequest);
+    String changePassword(UserEntity user,ChangePassword changePassword);
 }

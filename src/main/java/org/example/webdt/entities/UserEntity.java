@@ -26,8 +26,7 @@ public class UserEntity extends BaseEntity implements UserDetails{
             inverseJoinColumns = @JoinColumn(name="role_id",referencedColumnName = "id")
     )
     private Set<RoleEntity> roles = new HashSet<>();
-
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    //    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
 //    @JsonIgnoreProperties("user")
 //    private Set<OrderEntity> orders = new HashSet<OrderEntity>();
 
@@ -112,6 +111,9 @@ public class UserEntity extends BaseEntity implements UserDetails{
         this.roles = roles;
     }
 
+    public Long getId() {
+        return super.getId();
+    }
 //    public Set<OrderEntity> getOrders() {
 //        return orders;
 //    }

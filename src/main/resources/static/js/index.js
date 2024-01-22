@@ -1,6 +1,7 @@
 let slideIndex = 0;
 hienthiSlides();
 
+
 function hienthiSlides() {
     let i;
     let slides = document.getElementsByClassName("mySlides");
@@ -34,4 +35,25 @@ function scrollFunction() {
 function topFunction() {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+}
+
+function showEditForm(){
+    let elements = document.getElementsByClassName('col2_content');
+    for (let i = 0; i < elements.length; i++) {
+        let currentDisplay = elements[i].style.display;
+        elements[i].style.display = (currentDisplay === 'none') ? 'block' : 'none'; 
+    }
+}
+
+function showModal() {
+    showEditForm();
+    let modal = document.querySelector('.modal');
+    modal.style.opacity = '1';
+    modal.style.pointerEvents = 'auto';
+}
+
+function hide(){
+    let modal = document.querySelector('.modal');
+    modal.style.opacity = '0';
+    modal.style.pointerEvents = 'none';
 }

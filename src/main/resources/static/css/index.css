@@ -66,17 +66,16 @@ img {
 
 ul.topnav {
     list-style-type: none;
-    margin: 0;
+    /*margin: 0;*/
     padding: 0;
-    overflow: hidden;
     background-color: #202c4f00;
     margin-top: 4px;
-    margin-right:100px ;
+    margin-right:80px ;
 }
 
-ul.topnav li {float: left;}
+ul.topnav>li {float: left;}
 
-ul.topnav li a {
+ul.topnav>li>a {
     display: inline-block;
     color: white;
     text-align: center;
@@ -94,10 +93,59 @@ ul.topnav li a i{
     zoom: 1.5;
 }
 
-ul.topnav li a:hover {
-
+ul.topnav>li>a:hover {
     background-color: #434d6a;
     border-radius: 10px;
+}
+
+.pofolio{
+    position: relative;
+    padding-right: 25px;
+}
+
+.hi-menu{
+    position: absolute;
+    top:100%;
+    left:0;
+    /*margin: 0;*/
+    padding: 0;
+    z-index: 99999;
+    background: #fff;
+    border: 1px solid #ddd;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.hi-menu li{
+    list-style: none;
+}
+
+.dropdown-item{
+    display: block;
+    padding: 8px 0px 8px 10px;
+    width: 120px;
+    text-align: start;
+    color: rgb(120, 120, 120);
+    text-decoration: none;
+    line-height: 1.2rem;
+    font-size:14px;
+    font-weight: 300;
+    border-bottom: 1px solid #ddd;
+}
+
+.dropdown-item .fa{
+    margin-right: 15px;
+    zoom: 1.2;
+}
+
+.dropdown-item:hover{
+    background-color: rgb(240, 240, 240);
+}
+
+.pofolio:hover .hi-menu{
+    visibility: visible;
+    opacity: 1;
 }
 
 /* Back to top*/

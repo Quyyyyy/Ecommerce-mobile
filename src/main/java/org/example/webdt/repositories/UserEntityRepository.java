@@ -12,4 +12,5 @@ public interface UserEntityRepository extends JpaRepository<UserEntity,Long> {
     @Query(value = "SELECT COUNT(*) FROM users",nativeQuery = true)
     Long getToTalUser();
     Optional<UserEntity> findByUsernameOrEmail(String username, String email);
+    boolean existsByEmail(String email);
 }

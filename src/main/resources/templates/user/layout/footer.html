@@ -55,7 +55,23 @@
     <div class="copyright">
         <p>Copyright © 2022 by Team 14</p>
     </div>
-    <script th:src="@{../js/index.js}"></script>
+    <script th:src="@{../../js/index.js}"></script>
+    <script th:src="@{../../js/category.js}"></script>
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            let currentPath = window.location.pathname;
+
+            let menuLinks = document.querySelectorAll(".profile-link");
+
+            menuLinks.forEach(function (link) {
+                let linkPath = link.getAttribute("href");
+
+                if (currentPath === linkPath) {
+                    link.classList.add("active_11");
+                }
+            });
+        });
+    </script>
 </footer>
 </body>
 </html>

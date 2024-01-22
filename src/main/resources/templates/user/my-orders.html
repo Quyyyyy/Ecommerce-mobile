@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <div th:replace="user/layout/head::head"></div>
+  <link rel="stylesheet" th:href="@{../css/profile.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{../css/myorders.css}" type="text/css">
+</head>
+<body>
+
+<div>
+  <div th:replace="user/layout/header :: .container-menu"></div>
+  <div th:replace="user/layout/header :: #back-to-top"></div>
+
+
+  <div class="content">
+    <div class="content-page">
+      <div th:replace="user/layout/sidebar :: .col1"></div>
+        <div class="col3">
+          <div class="col3_title" style="margin: 25px 0px;">
+            <h3>Đơn hàng của tôi</h3>
+          </div>
+          <div class="col3_header">
+            <ul>
+              <a class="status_link" th:href="@{'/my-order?lang=all'}"  id="all">Tất cả</a>
+              <a class="status_link" th:href="@{'/my-order?lang=moi'}"  id="moi">Đã đặt hàng</a>
+              <a class="status_link" th:href="@{'/my-order?lang=dang-giao-hang'}"  id="dang-giao-hang">Đang giao</a>
+              <a class="status_link" th:href="@{'/my-order?lang=da-nhan-hang'}" id="da-nhan-hang">Hoàn tất</a>
+              <a class="status_link" th:href="@{'/my-order?lang=da-huy'}" id="da-huy">Đã hủy</a>
+            </ul>
+          </div>
+          <div class="col3_content">
+            <th:block th:object="${ordersStatus}" th:if="${ordersStatus != null}">
+              <div class="col3_content1">
+                <table>
+                  <tr>
+                    <th>STT</th>
+                    <th>Mã đơn</th>
+                    <th>Người đặt</th>
+                    <th>Created</th>
+                    <th>Trạng thái</th>
+                    <th:block th:if="${status.equals('mới') or status.equals('đang vận chuyển')}">
+                      <th>Action</th>
+                    </th:block>
+                  </tr>
+                  <tr th:each="order,itemStat:${ordersStatus}">
+                    <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${itemStat.count}"></a></td>
+                    <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.orderCode}"></a></td>
+                    <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.user.name}"></a></td>
+                    <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.created}"></a></td>
+                    <td th:id="'num_'+${order.id}"><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.order_status}"></a></td>
+                    <th:block th:if="${status.equals('mới')}">
+                      <td>
+                        <button style="border: none;background: #e74c3c;
+                        color:#fff;border-radius: 8px;
+                        cursor: pointer" th:onclick="|editOrder('${order.id}','da-huy')|">Hủy đơn</button>
+                      </td>
+                    </th:block>
+                    <th:block th:if="${status.equals('đang vận chuyển')}">
+                      <td>
+                        <button style="border: none;background: #e74c3c;
+                        color:#fff;border-radius: 8px;
+                        cursor: pointer" th:onclick="|editOrder('${order.id}','da-nhan-hang')|">Xác nhận nhận hàng</button>
+                      </td>
+                    </th:block>
+                  </tr>
+                </table>
+              </div>
+              <div class="page_order" style="text-align: center;">
+                <th:block th:if="${result1.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result1.totalPages - 1)}">
+                  <button th:if="${i == result1.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                  <button th:unless="${i == result1.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+                </th:block>
+                <th:block th:if="${result1.totalPages == 0}">
+                  <button class="pageNum currentPage" th:text="${result1.pageNo +1}"></button>
+                </th:block>
+              </div>
+            </th:block>
+            <th:block th:if="${ordersStatus == null}">
+            <div class="col3_content1">
+              <table>
+                <tr>
+                  <th>STT</th>
+                  <th>Mã đơn</th>
+                  <th>Người đặt</th>
+                  <th>Created</th>
+                  <th>Trạng thái</th>
+<!--                  <th>Action</th>-->
+                </tr>
+                <tr th:each="order,itemStat:${orders}">
+                  <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${itemStat.count}"></a></td>
+                  <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.orderCode}"></a></td>
+                  <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.user.name}"></a></td>
+                  <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.created}"></a></td>
+                  <td><a th:href="@{'/my-order/'+${order.id}}" th:text="${order.order_status}"></a></td>
+<!--                  <td>Hủy</td>-->
+                </tr>
+              </table>
+            </div>
+            <div class="page_order" style="text-align: center;">
+              <th:block th:if="${result.totalPages != 0}" th:each="i : ${#numbers.sequence(0, result.totalPages - 1)}">
+                <button th:if="${i == result.pageNo}" class="pageNum active" th:text="${i+1}"></button>
+                <button th:unless="${i == result.pageNo}" class="pageNum" th:text="${i+1}" th:onclick="'layUrl(\'pageNo\', \'' + ${i} + '\')'"></button>
+              </th:block>
+              <th:block th:if="${result.totalPages == 0}">
+                <button class="pageNum currentPage" th:text="${result.pageNo +1}"></button>
+              </th:block>
+            </div>
+            </th:block>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  <div th:replace="user/layout/footer"></div>
+  <script th:inline="javascript">
+    document.addEventListener("DOMContentLoaded", function () {
+      // Lấy tất cả các thẻ <a> có class "status_link"
+      let menuLinks = document.querySelectorAll(".status_link");
+
+      // Đặt sự kiện click cho mỗi thẻ <a>
+      menuLinks.forEach(function (link) {
+        link.addEventListener("click", function () {
+          // Loại bỏ lớp active1 từ tất cả các thẻ
+          menuLinks.forEach(function (el) {
+            el.classList.remove("active1");
+          });
+          // Thêm lớp active1 vào thẻ được nhấp vào
+          link.classList.add("active1");
+          // Lưu trạng thái active vào localStorage
+          localStorage.setItem("activeLinkId", link.id);
+        });
+      });
+      let activeLinkId = localStorage.getItem("activeLinkId");
+      if (activeLinkId) {
+        let activeLink = document.getElementById(activeLinkId);
+        if (activeLink) {
+          // Thêm lớp active1 vào thẻ được lưu trong localStorage
+          activeLink.classList.add("active1");
+        }
+      }
+    });
+
+    function editOrder(id,value){
+      $.ajax({
+        type:"PUT",
+        url:"/my-order/" + id,
+        data:{
+          status:value
+        },
+        success:function (response){
+          $('#num_' + id).text(response);
+        },
+        error: function (error){
+          alert(error);
+        }
+      })
+    }
+  </script>
+</div>
+
+</body>
+</html>

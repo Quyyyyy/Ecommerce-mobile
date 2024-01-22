@@ -19,6 +19,6 @@ public abstract class BaseController {
         if(userLogined != null && userLogined instanceof UserDetails) {
             return (UserEntity) userLogined;
         }
-        return new UserEntity();
+        return null;
     }
 }

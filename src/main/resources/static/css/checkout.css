@@ -127,3 +127,13 @@ body {
     max-width: 100px; /* Một ví dụ về màu nền khác */
     max-height: 50px;
 }
+
+.lienhe>table>tr>td>input{
+    padding: 10px 15px;
+}
+
+
+.lienhe input:focus{
+    border: none;
+    outline: none;
+}

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="user/layout/head::head"></div>
+    <link rel="stylesheet" th:href="@{../css/profile.css}" type="text/css">
+    <link rel="stylesheet" th:href="@{../css/myorders.css}" type="text/css">
+</head>
+<body>
+
+<div>
+    <div class="modal">
+        <div class="col2_content row-col1">
+            <div><i class="fa-solid fa-xmark"></i></div>
+            <div class="col2_content_title">
+                <h3>Thay đổi mật khẩu</h3>
+                <p>Bạn cần tạo mật khẩu từ 6 đến 16 ký tự
+                    để bảo vệ tài khoản tốt hơn.</p>
+            </div>
+            <div class="info2">
+                <input type="password" placeholder="Nhập mật khẩu cũ" name="name">
+            </div>
+            <div class="info2">
+                <input type="password" placeholder="Nhập mật khẩu" name="name">
+            </div>
+            <div class="info2">
+                <input type="password" placeholder="Nhập lại mật khẩu" name="name">
+            </div>
+            <div class="info2">
+                <button style="width: 100%;margin-top: 20px;">Xác nhận</button>
+            </div>
+        </div>
+    </div>
+    <div th:replace="user/layout/header :: .container-menu"></div>
+    <div th:replace="user/layout/header :: #back-to-top"></div>
+
+
+    <div class="content">
+        <div class="content-page">
+            <div th:replace="user/layout/sidebar :: .col1"></div>
+            <div class="col2">
+                <div class="col2_title">
+                    <h2>Chi tiết đơn hàng</h2>
+                </div>
+                <div class="col2_content" style="min-width: 60%;">
+                    <div class="info1">
+                        <label>MÃ đơn hàng </label>
+                        <span th:text="${order.orderCode}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Người đặt </label>
+                        <span th:text="${order.user.name}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Người nhận </label>
+                        <span th:text="${order.customerName}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Số điện thoại </label>
+                        <span th:text="${order.customerPhone}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Email </label>
+                        <span th:text="${order.customerEmail}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Địa chỉ </label>
+                        <span th:text="${order.customerAddress}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Thời gian đặt </label>
+                        <span th:text="${order.created}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Trạng thái đơn </label>
+                        <span th:text="${order.order_status}"></span>
+                    </div>
+                    <div class="info1">
+                        <label>Tổng tiền đơn hàng </label>
+                        <span th:text="${#numbers.formatInteger(order.total,3,'POINT')}+' VNĐ'"></span>
+                    </div>
+                </div>
+                <div class="col4_content">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Ảnh</th>
+                            <th>Title</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item,itemStat:${order.orderItems}">
+                            <td th:text="${itemStat.count}"></td>
+                            <td><img th:src="@{${url}+${item.product.avatar}}" style="width:70px;height: 70px"></td>
+                            <td th:text="${item.product.title}"></td>
+                            <td th:text="${item.quantity}"></td>
+                            <td th:text="${#numbers.formatInteger(item.priceBuy,3,'POINT')}+' VNĐ'"></td>
+                            <td th:text="${#numbers.formatInteger(item.quantity*item.priceBuy,3,'POINT')}+' VNĐ'"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="user/layout/footer"></div>
+</div>
+
+</body>
+</html>

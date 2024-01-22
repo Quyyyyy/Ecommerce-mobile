@@ -70,7 +70,7 @@ public class AdminOrderController {
 
     @PutMapping("/orders/{id}")
     public ResponseEntity<String> updateStatus(@PathVariable("id") Long id){
-        String status = "đang giao hàng";
+        String status = "đang vận chuyển";
         OrderDto orderDto = orderService.updateOrder(id,status);
         return ResponseEntity.ok(orderDto.getOrder_status());
     }

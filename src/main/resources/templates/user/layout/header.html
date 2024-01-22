@@ -43,16 +43,30 @@
                         <p>Giới thiệu</p>
                     </a>
                 </li>
-                <li>
-
-                    <a th:href="@{/login}" th:if="${#authorization.expression('!isAuthenticated()')}">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <p>Đăng nhập</p>
-                    </a>
-                    <a th:href="@{/logout}" th:if="${#authorization.expression('isAuthenticated()')}">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                        <p th:text="${#authentication.principal.username}"></p>
-                    </a>
+                <li class="pofolio">
+                    <th:block th:if="${#authorization.expression('!isAuthenticated()')}">
+                        <a th:href="@{/login}">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            <p>Đăng nhập</p>
+                        </a>
+                    </th:block>
+                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                        <a>
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            <p th:text="${#authentication.principal.username}"></p>
+                        </a>
+                        <ul class="hi-menu">
+                            <li>
+                                <a class="dropdown-item" th:href="@{/profile}"><i class="fa fa-user"></i><span>Profile</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/my-order}"><i class="fa fa-shopping-bag"></i><span>My order</span></a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i><span>Logout</span></a>
+                            </li>
+                        </ul>
+                    </th:block>
 
                     <!-- Nếu người dùng chưa xác thực, hiển thị nút Login -->
 <!--                    <a th:href="@{/login}" th:inline="text" th:unless="${#authorization.expression('isAuthenticated')}">-->

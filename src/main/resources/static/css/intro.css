@@ -67,6 +67,13 @@ td input,textarea{
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 16px;
+    outline: none;
+    /*border: none;*/
+}
+
+input,textarea:focus{
+    outline: none;
+    border: none;
 }
 
 td button{

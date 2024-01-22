@@ -1,9 +1,9 @@
 package org.example.webdt.services.impl;
 
-import jakarta.transaction.Transactional;
 import org.example.webdt.dto.ResultResponse;
 import org.example.webdt.dto.UserDto;
 import org.example.webdt.dto.mapper.UserMapper;
+import org.example.webdt.dto.request.ChangePassword;
 import org.example.webdt.dto.request.RegisterRequest;
 import org.example.webdt.dto.request.UserRequest;
 import org.example.webdt.entities.RoleEntity;
@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -85,7 +86,9 @@ public class UserServiceImpl implements UserService {
         user.setEmail(userDto.getEmail());
         user.setAddress(userDto.getAddress());
         user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        if(userDto.getPassword()!=null){
+            user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        }
         Set<RoleEntity> roless = new HashSet<>();
         for(String ro: userDto.getRoles()){
             RoleEntity role = roleRepository.findById(Long.parseLong(ro)).get();
@@ -110,6 +113,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userRequest.getName());
         user.setUsername(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
+        user.setPhone(userRequest.getPhone());
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         Set<RoleEntity> roless = new HashSet<>();
         RoleEntity role = roleRepository.findByName("GUEST");
@@ -121,5 +125,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity findByUsernameOrEmail(String username, String email) {
         return userRepository.findByUsernameOrEmail(username,email).orElse(null);
+    }
+
+    @Override
+    public String editProfile(UserEntity user, UserRequest userRequest) {
+        if(!user.getEmail().equals(userRequest.getEmail()) && !userRepository.existsByEmail(userRequest.getEmail())){
+            user.setEmail(userRequest.getEmail());
+        }
+        if(!user.getEmail().equals(userRequest.getEmail()) && userRepository.existsByEmail(userRequest.getEmail())){
+            return "email đã tồn tại";
+        }
+        user.setName(userRequest.getName());
+        user.setPhone(userRequest.getPhone());
+        user.setAddress(userRequest.getAddress());
+        UserEntity user1 =userRepository.save(user);
+        return "cập nhật thành công";
+
+    }
+
+    @Override
+    public String changePassword(UserEntity user, ChangePassword changePassword) {
+        if (!passwordEncoder.matches(changePassword.getPassword(), user.getPassword())) {
+            return "Mật khẩu không đúng";
+        }
+        if(!changePassword.getNew_pass().equals(changePassword.getNew1_pass())){
+            return "password không trùng";
+        }
+        user.setPassword(passwordEncoder.encode(changePassword.getNew_pass()));
+        UserEntity user1 =userRepository.save(user);
+        return "cập nhật thanh công";
     }
 }

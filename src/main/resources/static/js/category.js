@@ -151,4 +151,3 @@ function deleteUrl1(key,key1){
     url.searchParams.delete(key1);
     window.location.href = url.href;
 }
-
