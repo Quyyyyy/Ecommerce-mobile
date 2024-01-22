@@ -18,3 +18,11 @@ xác nhận đơn hàng
 ![category](imagesDemo/2.png)
 
 ![detail-product](imagesDemo/4.png)
+
+![cart](imagesDemo/9.png)
+
+![checkout](imagesDemo/10.png)
+
+![vnpay](imagesDemo/11.png)
+
+![dashboard](imagesDemo/12.png)
