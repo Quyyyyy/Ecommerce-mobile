@@ -31,3 +31,6 @@ xác nhận đơn hàng
 
 ![view-info-user](imagesDemo/15.png)
 
+![admin-product](imagesDemo/17.png)
+
+![admin-order](imagesDemo/18.png)
