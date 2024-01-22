@@ -12,3 +12,5 @@ xem danh sách đơn hàng
 xác nhận đơn hàng
 
 ![index](imagesDemo/1.png)
+
+![category](imagesDemo/2.png)
