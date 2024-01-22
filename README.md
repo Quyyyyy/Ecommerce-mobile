@@ -25,4 +25,9 @@ xác nhận đơn hàng
 
 ![vnpay](imagesDemo/11.png)
 
-![dashboard](imagesDemo/12.png)
+![dashboard](imagesDemo/13.png)
+
+![admin-user](imagesDemo/14.png)
+
+![view-info-user](imagesDemo/15.png)
+
